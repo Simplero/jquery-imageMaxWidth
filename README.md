@@ -7,8 +7,19 @@ This is particularly needed for Firefox, which doesn't honor the max-width prope
 inside an element without a fixed pixel width, making it difficult to make responsive/fluid layouts 
 with user-uploaded images which may be too big and need to be scaled down, but not up.
 
+Here's an example of how it can be used (in CoffeeScript):
+
 ```coffeescript
-if /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase())
+# Backwards compat hack for $.browser
+
+$.browser =
+  mozilla: /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase())
+  webkit:  /webkit/.test(navigator.userAgent.toLowerCase())
+  opera:   /opera/.test(navigator.userAgent.toLowerCase())
+  msie:    /msie/.test(navigator.userAgent.toLowerCase())
+  ios:     /(ipad|iphone|ipod)/.test(navigator.userAgent.toLowerCase())
+
+if $.browser.mozilla
   $('.container).imageMaxWidth()
 ```
 
