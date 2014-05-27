@@ -11,7 +11,6 @@ Here's an example of how it can be used (in CoffeeScript):
 
 ```coffeescript
 # Backwards compat hack for $.browser
-
 $.browser =
   mozilla: /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase())
   webkit:  /webkit/.test(navigator.userAgent.toLowerCase())
@@ -19,7 +18,8 @@ $.browser =
   msie:    /msie/.test(navigator.userAgent.toLowerCase())
   ios:     /(ipad|iphone|ipod)/.test(navigator.userAgent.toLowerCase())
 
-if $.browser.mozilla
+# Invoke imageMaxWidth on all images inside .container, but only for Firefox or Opera
+if $.browser.mozilla or $.browser.opera
   $('.container).imageMaxWidth()
 ```
 
